@@ -19,12 +19,14 @@ class ViewController: UIViewController {
     // MARK: - Variable Properties
     var loadTime = Date() {
         didSet {
-            presentInitialViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.presentInitialViewController()
+            }
         }
     }
     var presentationTime: Date?
     var version: String?
-
+    
     // MARK: - Methods Inherited from UIViewController
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -58,7 +60,7 @@ class ViewController: UIViewController {
             SSZipArchive.unzipFile(atPath: source, toDestination: destination, delegate: self)
         }
     }
-
+    
     // MARK: - Own Methods
     func loadBundle(completion: @escaping (Data?, Error?) -> Void) {
         guard let versionURL = URL(string: versionPath) else {
@@ -120,20 +122,18 @@ class ViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: storyboardName, bundle: bundle)
         
-        DispatchQueue.main.async {
-            guard let viewController = storyboard.instantiateInitialViewController() else {
-                print(#line, #function, "ERROR: Can't instantiate initial view controller from \(storyboardName) storyboard of \(bundlePath) bundle")
-                return
-            }
-            self.dismiss(animated: false)
-            self.present(viewController, animated: false)
-            self.presentationTime = Date()
-            if let version = self.version {
-                UserDefaults.standard.set(version, forKey: self.versionStringKey)
-            }
+        guard let viewController = storyboard.instantiateInitialViewController() else {
+            print(#line, #function, "ERROR: Can't instantiate initial view controller from \(storyboardName) storyboard of \(bundlePath) bundle")
+            return
+        }
+        dismiss(animated: false)
+        present(viewController, animated: false)
+        presentationTime = Date()
+        if let version = version {
+            UserDefaults.standard.set(version, forKey: versionStringKey)
         }
     }
-
+    
 }
 
 // MARK: - SSZipArchiveDelegate
