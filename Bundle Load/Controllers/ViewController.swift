@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     // MARK: - Constant Properties
     let bundleName = "Loadable.bundle"
     let bundlePath = "http://server.getoutfit.ru:8090/images/Loadable.bundle.zip"
+    let versionPath = "http://server.getoutfit.ru:8090/images/version.txt"
+    let versionStringKey = "versionStringKey"
     
     // MARK: - Variable Properties
     var loadTime = Date() {
@@ -21,6 +23,7 @@ class ViewController: UIViewController {
         }
     }
     var presentationTime: Date?
+    var version: String?
 
     // MARK: - Methods Inherited from UIViewController
     override func viewDidAppear(_ animated: Bool) {
@@ -31,17 +34,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let url = URL(string: bundlePath) else {
-            print(#line, #function, "ERROR: Can't create URL from \(bundlePath)")
-            return
-        }
-        
-        loadBundle(from: url) { data, error in
+        loadBundle() { data, error in
             guard let data = data else {
                 if let error = error {
                     print(#line, #function, "ERROR: \(error.localizedDescription)")
-                } else {
-                    print(#line, #function, "ERROR: Can't load data from \(url.absoluteString)")
                 }
                 return
             }
@@ -64,12 +60,48 @@ class ViewController: UIViewController {
     }
 
     // MARK: - Own Methods
-    func loadBundle(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
-        let session = URLSession.shared.dataTask(with: url) { data, _, error in
-            completion(data, error)
+    func loadBundle(completion: @escaping (Data?, Error?) -> Void) {
+        guard let versionURL = URL(string: versionPath) else {
+            print(#line, #function, "ERROR: Can't create URL from \(versionPath)")
+            completion(nil, nil)
+            return
         }
         
-        session.resume()
+        let versionSession = URLSession.shared.dataTask(with: versionURL) { data, _, error in
+            guard let versionData = data else {
+                completion(nil, error)
+                return
+            }
+            
+            guard let versionString = String(data: versionData, encoding: .utf8) else {
+                print(#line, #function, "ERROR: Can't get string from \(self.versionPath)")
+                completion(nil, nil)
+                return
+            }
+            
+            let previousVersionString = UserDefaults.standard.string(forKey: self.versionStringKey)
+            guard !versionString.isEmpty && previousVersionString != versionString else {
+                print(#line, #function, "WARNING: No new version found \(versionString)")
+                completion(nil, nil)
+                return
+            }
+            
+            self.version = versionString
+            
+            guard let bundleURL = URL(string: self.bundlePath) else {
+                print(#line, #function, "ERROR: Can't create URL from \(self.bundlePath)")
+                completion(nil, nil)
+                return
+            }
+            
+            let bundleSession = URLSession.shared.dataTask(with: bundleURL) { data, _, error in
+                completion(data, error)
+            }
+            
+            bundleSession.resume()
+        }
+        
+        versionSession.resume()
     }
     
     func presentInitialViewController(storyboardName: String = "Main", bundlePath: String? = nil) {
@@ -94,8 +126,11 @@ class ViewController: UIViewController {
                 return
             }
             self.dismiss(animated: false)
-            self.presentationTime = Date()
             self.present(viewController, animated: false)
+            self.presentationTime = Date()
+            if let version = self.version {
+                UserDefaults.standard.set(version, forKey: self.versionStringKey)
+            }
         }
     }
 

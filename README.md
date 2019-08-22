@@ -6,9 +6,11 @@ To create a new bundle, follow [this advice](https://stackoverflow.com/questions
 
 Zip your bundle.  Put it on the server.  Change [ViewController.swift](https://github.com/dbystruev/Bundle-Load/blob/master/Bundle%20Load/Controllers/ViewController.swift):
 
-- Line 14: replace with your bundle name (make sure archive name is bundle name with ".zip").
-- Line 15: replace with your bundle URL
-- Run It!
+- Line 14: replace with a name of a bundle inside a ".zip" arcihve
+- Line 15: replace with URL to a zipped bundle file
+— Line 16: replace with your version URL text file
+
+Version is a UTF8 text file with anything in it.  The bundle is loaded if version file has changed.  
 
 ## Thanks to
 - [SSZipArchive](https://github.com/ZipArchive/ZipArchive.git) by [ZipArchive](https://github.com/ZipArchive)
