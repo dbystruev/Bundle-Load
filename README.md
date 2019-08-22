@@ -4,10 +4,10 @@ Example of loading a bundle from remote server, unzipping it, loading a storyboa
 ## Setup
 To create a new bundle, follow [this advice](https://stackoverflow.com/questions/4888208/how-to-make-an-ios-asset-bundle?answertab=active#tab-top).
 
-Zip your bundle and put it on the server somewhere.  Change [ViewController.swift](https://github.com/dbystruev/Bundle-Load/blob/master/Bundle%20Load/Controllers/ViewController.swift):
+Zip your bundle.  Put it on the server.  Change [ViewController.swift](https://github.com/dbystruev/Bundle-Load/blob/master/Bundle%20Load/Controllers/ViewController.swift):
 
-- Line 13: put your bundle name.
-- Line 18: put your bundle URL.  Make sure last component of bundle URL is bundle name with ".zip"
+- Line 13: replace with your bundle name (make sure archive name is bundle name with ".zip").
+- Line 18: replace with your bundle URL
 - Run It!
 
 ## Thanks to
