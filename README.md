@@ -6,8 +6,8 @@ To create a new bundle, follow [this advice](https://stackoverflow.com/questions
 
 Zip your bundle.  Put it on the server.  Change [ViewController.swift](https://github.com/dbystruev/Bundle-Load/blob/master/Bundle%20Load/Controllers/ViewController.swift):
 
-- Line 13: replace with your bundle name (make sure archive name is bundle name with ".zip").
-- Line 18: replace with your bundle URL
+- Line 14: replace with your bundle name (make sure archive name is bundle name with ".zip").
+- Line 15: replace with your bundle URL
 - Run It!
 
 ## Thanks to

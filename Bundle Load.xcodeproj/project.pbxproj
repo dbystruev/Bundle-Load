@@ -33,6 +33,8 @@
 		694B89AB230E7D710030B009 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B89AA230E7D710030B009 /* libz.tbd */; };
 		694B89AD230E7D820030B009 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B89AC230E7D820030B009 /* libiconv.tbd */; };
 		694B89AF230E7D950030B009 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B89AE230E7D950030B009 /* Security.framework */; };
+		69D8839D230ED59A0056B383 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 69D8839C230ED59A0056B383 /* README.md */; };
+		69D8839F230ED5C00056B383 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 69D8839E230ED5C00056B383 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +85,7 @@
 		694B89AC230E7D820030B009 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		694B89AE230E7D950030B009 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		69A475BC230E9E1500DFDEA1 /* Bundle-Load-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bundle-Load-Bridging-Header.h"; sourceTree = "<group>"; };
+		69D8839C230ED59A0056B383 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +220,8 @@
 		694B89A9230E7D710030B009 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69D8839C230ED59A0056B383 /* README.md */,
+				69D8839E230ED5C00056B383 /* README.md */,
 				694B89AE230E7D950030B009 /* Security.framework */,
 				694B89AC230E7D820030B009 /* libiconv.tbd */,
 				694B89AA230E7D710030B009 /* libz.tbd */,
@@ -282,8 +287,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D8839F230ED5C00056B383 /* README.md in Resources */,
 				694B894F230E643E0030B009 /* LaunchScreen.storyboard in Resources */,
 				694B894C230E643E0030B009 /* Assets.xcassets in Resources */,
+				69D8839D230ED59A0056B383 /* README.md in Resources */,
 				694B899B230E7D1E0030B009 /* LICENSE in Resources */,
 				694B894A230E643C0030B009 /* Main.storyboard in Resources */,
 			);

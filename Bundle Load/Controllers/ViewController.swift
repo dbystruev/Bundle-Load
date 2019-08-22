@@ -10,12 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: - Constant Properties
     let bundleName = "Loadable.bundle"
+    let bundlePath = "http://server.getoutfit.ru:8090/images/Loadable.bundle.zip"
+    
+    // MARK: - Variable Properties
+    var loadTime = Date() {
+        didSet {
+            presentInitialViewController()
+        }
+    }
+    var presentationTime: Date?
 
+    // MARK: - Methods Inherited from UIViewController
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentInitialViewController()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "http://server.getoutfit.ru:8090/images/Loadable.bundle.zip")!
+        guard let url = URL(string: bundlePath) else {
+            print(#line, #function, "ERROR: Can't create URL from \(bundlePath)")
+            return
+        }
+        
         loadBundle(from: url) { data, error in
             guard let data = data else {
                 if let error = error {
@@ -25,7 +45,6 @@ class ViewController: UIViewController {
                 }
                 return
             }
-            print(#line, #function, "1. Loaded \(data) from \(url.absoluteString)")
             
             let zipFileName = "\(self.bundleName).zip"
             let (returnedURL, error) = FileController.write(data, to: zipFileName)
@@ -37,7 +56,6 @@ class ViewController: UIViewController {
                 }
                 return
             }
-            print(#line, #function, "2. Has written data to \(zipFileURL.path)")
             
             let source = zipFileURL.path
             let destination = FileController.url(to: "Bundles").path
@@ -45,6 +63,7 @@ class ViewController: UIViewController {
         }
     }
 
+    // MARK: - Own Methods
     func loadBundle(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
         let session = URLSession.shared.dataTask(with: url) { data, _, error in
             completion(data, error)
@@ -52,26 +71,39 @@ class ViewController: UIViewController {
         
         session.resume()
     }
-
-}
-
-extension ViewController: SSZipArchiveDelegate {
-    func zipArchiveDidUnzipArchive(atPath path: String, zipInfo: unz_global_info, unzippedPath: String) {
-        print(#line, #function, "3. The bundle has been unzipped at \(unzippedPath)")
+    
+    func presentInitialViewController(storyboardName: String = "Main", bundlePath: String? = nil) {
+        guard presentationTime == nil || presentationTime! < loadTime else {
+            return
+        }
         
-        let bundlePath = "\(unzippedPath)/\(bundleName)"
+        let bundlePath = bundlePath ?? "\(FileController.url(to: "Bundles").path)/\(bundleName)"
+        
+        print(#line, #function, bundlePath)
+        
         guard let bundle = Bundle(path: bundlePath) else {
             print(#line, #function, "ERROR: Can't create bundle from \(bundlePath)")
             return
         }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-        guard let viewController = storyboard.instantiateInitialViewController() else {
-            print(#line, #function, "ERROR: Can't instantiate initial view controller from Main.Storyboard")
-            return
-        }
+        let storyboard = UIStoryboard(name: storyboardName, bundle: bundle)
+        
         DispatchQueue.main.async {
-            self.present(viewController, animated: true)
+            guard let viewController = storyboard.instantiateInitialViewController() else {
+                print(#line, #function, "ERROR: Can't instantiate initial view controller from \(storyboardName) storyboard of \(bundlePath) bundle")
+                return
+            }
+            self.dismiss(animated: false)
+            self.presentationTime = Date()
+            self.present(viewController, animated: false)
         }
+    }
+
+}
+
+// MARK: - SSZipArchiveDelegate
+extension ViewController: SSZipArchiveDelegate {
+    func zipArchiveDidUnzipArchive(atPath path: String, zipInfo: unz_global_info, unzippedPath: String) {
+        loadTime = Date()
     }
 }
