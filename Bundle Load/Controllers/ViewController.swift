@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     let versionPath = "http://server.getoutfit.ru:8090/images/version.txt"
     let versionStringKey = "versionStringKey"
     
-    // MARK: - Variable Properties
+    // MARK: - Stored Properties
     var loadTime = Date() {
         didSet {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -132,6 +132,7 @@ class ViewController: UIViewController {
         if let version = version {
             UserDefaults.standard.set(version, forKey: versionStringKey)
         }
+        ParseController.parse(viewController)
     }
     
 }

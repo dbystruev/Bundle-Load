@@ -34,7 +34,8 @@
 		694B89AD230E7D820030B009 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B89AC230E7D820030B009 /* libiconv.tbd */; };
 		694B89AF230E7D950030B009 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B89AE230E7D950030B009 /* Security.framework */; };
 		69D8839D230ED59A0056B383 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 69D8839C230ED59A0056B383 /* README.md */; };
-		69D8839F230ED5C00056B383 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 69D8839E230ED5C00056B383 /* README.md */; };
+		69D8839F230ED5C00056B383 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		69F6E687230FF1A9009A6B11 /* ParseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F6E686230FF1A9009A6B11 /* ParseController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		694B89AE230E7D950030B009 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		69A475BC230E9E1500DFDEA1 /* Bundle-Load-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bundle-Load-Bridging-Header.h"; sourceTree = "<group>"; };
 		69D8839C230ED59A0056B383 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		69F6E686230FF1A9009A6B11 /* ParseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				694B8970230E70770030B009 /* FileController.swift */,
+				69F6E686230FF1A9009A6B11 /* ParseController.swift */,
 				694B8946230E643C0030B009 /* ViewController.swift */,
 			);
 			path = Controllers;
@@ -221,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				69D8839C230ED59A0056B383 /* README.md */,
-				69D8839E230ED5C00056B383 /* README.md */,
 				694B89AE230E7D950030B009 /* Security.framework */,
 				694B89AC230E7D820030B009 /* libiconv.tbd */,
 				694B89AA230E7D710030B009 /* libz.tbd */,
@@ -287,7 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69D8839F230ED5C00056B383 /* README.md in Resources */,
+				69D8839F230ED5C00056B383 /* (null) in Resources */,
 				694B894F230E643E0030B009 /* LaunchScreen.storyboard in Resources */,
 				694B894C230E643E0030B009 /* Assets.xcassets in Resources */,
 				69D8839D230ED59A0056B383 /* README.md in Resources */,
@@ -318,6 +320,7 @@
 				694B8947230E643C0030B009 /* ViewController.swift in Sources */,
 				694B899D230E7D1E0030B009 /* mz_crypt_apple.c in Sources */,
 				694B8999230E7D1E0030B009 /* mz_strm_zlib.c in Sources */,
+				69F6E687230FF1A9009A6B11 /* ParseController.swift in Sources */,
 				694B899C230E7D1E0030B009 /* mz_zip_rw.c in Sources */,
 				694B8997230E7D1E0030B009 /* mz_strm_os_posix.c in Sources */,
 				694B899E230E7D1E0030B009 /* mz_strm_mem.c in Sources */,
